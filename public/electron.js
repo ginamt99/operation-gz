@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const isDev = require('electron-is-dev');
 
 const loadMainWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -11,10 +12,18 @@ const loadMainWindow = () => {
         }
     });
 
-    mainWindow.loadFile(path.join(__dirname, "canvas.html"));
+    mainWindow.loadURL(
+        isDev
+        ? 'http://localhost:3000'
+        : `file://${path.join(__dirname, '../build/index.html')}`
+    );
+
+    if (isDev) {
+        mainWindow.webContents.openDevTools({ mode: detach });
+    }
 }
 
-app.on("ready", loadMainWindow);
+app.whenReady().then(loadMainWindow);
 
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
