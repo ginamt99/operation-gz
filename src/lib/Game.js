@@ -1,6 +1,6 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
-import Entity from './Entity.mjs';
+import Entity from './Entity.js';
 
 const player = new Entity(400, 500, 30, 'red');
 

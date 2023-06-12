@@ -1,22 +1,18 @@
-import { c, canvas } from './Logic.mjs';
-
-export default class Fighter {
-    constructor(x, y, radius, color) {
+export default class Entity {
+    constructor(x, y, height, width, color) {
         this.strength = 1;
         this.health = 100;
         this.x = x;
         this.y = y;
-        this.radius = radius;
+        this.height = height;
+        this.width = width;
         this.color = color;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.update = function() {
-            c.fillStyle = this.color
-            c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.update = function(context) {
+            context.fillStyle = this.color
+            context.rect(this.x, this.y, 30, 30, color, false);
         }
-        this.newPos = function() {
-            this.x += this.speedX;
-            this.y += this.speedY; 
+        this.newPos = function(speed) {
+            this.x += speed;
         };
         this.obstacleDetect = function(obj) {
             let left = this.x;
@@ -52,10 +48,11 @@ export default class Fighter {
         }
     }
 
-    draw() {
-        c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        c.fillStyle = this.color
-        c.fill();
+    draw(context) {
+        context.beginPath();
+        context.rect(this.x, this.y, 30, 30, this.color, false);
+        context.fillStyle = this.color
+        context.fill();
+        // context.clearRect(this.x, this.y, this.width, this.height);
     }
 }
