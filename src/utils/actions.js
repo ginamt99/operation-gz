@@ -1,0 +1,1 @@
+export const UPDATE_PLAYER = 'UPDATE_PLAYER';
